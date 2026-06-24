@@ -1,0 +1,436 @@
+/* ============================================================
+   Expense & Budget Visualizer — style.css
+   Mobile-first base styles + desktop layout (768px+)
+   ============================================================ */
+
+/* ----------------------------------------------------------
+   1. GLOBAL RESET & BOX MODEL
+   ---------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ----------------------------------------------------------
+   2. BASE / TYPOGRAPHY
+   ---------------------------------------------------------- */
+body {
+  margin: 0;
+  padding: 0;
+  min-width: 320px;
+  background-color: #f4f6f9;
+  color: #222;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji";
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+h1,
+h2 {
+  margin: 0 0 0.5rem 0;
+}
+
+h1 {
+  font-size: 1.25rem;
+}
+
+h2 {
+  font-size: 1.1rem;
+  color: #444;
+}
+
+/* ----------------------------------------------------------
+   3. HEADER
+   ---------------------------------------------------------- */
+header {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  background-color: #2c3e50;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+/* Constrain spending-limit input so it doesn't stretch the header */
+.spending-limit-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.spending-limit-container input {
+  width: auto;
+  min-width: 120px;
+  max-width: 180px;
+}
+
+header h1 {
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+.balance-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+}
+
+.balance-label {
+  opacity: 0.85;
+}
+
+#total-balance {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1abc9c;
+}
+
+/* ----------------------------------------------------------
+   4. SECTIONS — shared spacing
+   ---------------------------------------------------------- */
+section {
+  padding: 1rem 1.25rem;
+}
+
+/* ----------------------------------------------------------
+   5. FORM SECTION
+   ---------------------------------------------------------- */
+#form-section {
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+#transaction-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.form-group {
+  margin-bottom: 0.85rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+  color: #333;
+}
+
+/* All interactive controls: full-width, touch-friendly */
+input,
+select,
+button {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: inherit;
+  font-family: inherit;
+  color: #222;
+  background-color: #fff;
+  transition: border-color 0.2s;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #2c3e50;
+  box-shadow: 0 0 0 2px rgba(44, 62, 80, 0.15);
+}
+
+/* Submit button */
+button[type="submit"] {
+  width: 100%;
+  background-color: #2c3e50;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-top: 0.25rem;
+  transition: background-color 0.2s;
+}
+
+button[type="submit"]:hover,
+button[type="submit"]:focus {
+  background-color: #1a252f;
+  outline: none;
+}
+
+/* Error message — reserve space to prevent layout jump */
+#form-error {
+  min-height: 1.4rem;
+  margin: 0.4rem 0 0;
+  color: #c0392b;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* ----------------------------------------------------------
+   6. TRANSACTION LIST SECTION
+   ---------------------------------------------------------- */
+#list-section {
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+#empty-state {
+  text-align: center;
+  color: #999;
+  font-style: italic;
+  padding: 1rem 0;
+  margin: 0;
+}
+
+/* Scrollable list */
+#transaction-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* Each list item */
+#transaction-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.65rem 0.5rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+#transaction-list li:last-child {
+  border-bottom: none;
+}
+
+/* Transaction name — takes available space */
+.transaction-name {
+  flex-grow: 1;
+  font-weight: 700;
+  color: #222;
+  min-width: 100px;
+}
+
+/* Amount */
+.transaction-amount {
+  padding: 0.1rem 0.4rem;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+/* Category badge */
+.transaction-category {
+  padding: 0.1rem 0.5rem;
+  background-color: #eaf0fb;
+  color: #2c3e50;
+  border-radius: 12px;
+  font-size: 0.8rem;
+}
+
+/* Delete button — does NOT stretch to 100% inside the flex row */
+#transaction-list li button {
+  width: auto;
+  min-height: 36px;
+  padding: 0.2rem 0.65rem;
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: background-color 0.2s;
+  flex-shrink: 0;
+}
+
+#transaction-list li button:hover,
+#transaction-list li button:focus {
+  background-color: #c0392b;
+  outline: none;
+}
+
+/* ----------------------------------------------------------
+   7. CHART SECTION
+   ---------------------------------------------------------- */
+#chart-section {
+  background-color: #fff;
+  text-align: center;
+}
+
+#spending-chart {
+  max-width: 300px;
+  margin: 0 auto;
+  display: block;
+}
+
+#chart-placeholder {
+  color: #999;
+  font-style: italic;
+  margin: 0.75rem 0 0;
+}
+
+/* ----------------------------------------------------------
+   8. UTILITY
+   ---------------------------------------------------------- */
+.hidden {
+  display: none !important;
+}
+
+
+/* ============================================================
+   DESKTOP LAYOUT — 768px and wider
+   Tasks 10.2 / Requirement 10.3
+   ============================================================ */
+@media (min-width: 768px) {
+
+  /* --- Header: horizontal row on wider screens --- */
+  header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+  }
+
+  header h1 {
+    font-size: 1.4rem;
+  }
+
+  .balance-container {
+    font-size: 1.1rem;
+  }
+
+  /* --- Two-column page layout using CSS Grid ---
+       Left column : form-section + list-section
+       Right column: chart-section
+  ------------------------------------------------- */
+  body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      "header  header"
+      "left    right";
+    min-height: 100vh;
+    align-items: start;
+  }
+
+  header {
+    grid-area: header;
+  }
+
+  /* Stack form + list into the left column */
+  #form-section {
+    grid-area: left;
+    border-bottom: none;
+    border-right: 1px solid #e0e0e0;
+    align-self: start;
+  }
+
+  #list-section {
+    /* Also lives in left column — use subgrid trick via wrapper,
+       or simply position it below form with grid flow */
+    grid-column: 1;
+    border-bottom: none;
+    border-right: 1px solid #e0e0e0;
+    align-self: start;
+  }
+
+  #chart-section {
+    grid-column: 2;
+    grid-row: 2 / span 2;
+    align-self: start;
+  }
+
+  /* --- Form: inputs no longer need to be 100%-wide --- */
+  input,
+  select {
+    width: 100%;        /* still full width within its column — looks cleaner */
+  }
+
+  button[type="submit"] {
+    width: auto;
+    min-width: 160px;
+    align-self: flex-start;
+  }
+
+  /* --- Larger chart on desktop --- */
+  #spending-chart {
+    max-width: 100%;
+  }
+
+  /* --- Give the list more room on wider screens --- */
+  #transaction-list {
+    max-height: 420px;
+  }
+
+  /* --- Section padding bump --- */
+  section {
+    padding: 1.5rem 2rem;
+  }
+}
+
+/* ============================================================
+   Over-limit highlight (Task 12.2) — Requirement 8.2
+   ============================================================ */
+.over-limit {
+  color: #e74c3c !important;
+}
+
+/* ============================================================
+   Dark mode theme (Task 13.2) — Requirements 9.1, 9.2
+   ============================================================ */
+body.dark-mode {
+  background-color: #1a1a2e;
+  color: #e0e0e0;
+}
+body.dark-mode header {
+  background-color: #16213e;
+}
+body.dark-mode #form-section,
+body.dark-mode #list-section,
+body.dark-mode #chart-section {
+  background-color: #0f3460;
+  color: #e0e0e0;
+}
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode button {
+  background-color: #16213e;
+  color: #e0e0e0;
+  border-color: #444;
+}
+body.dark-mode #transaction-list li {
+  border-bottom-color: #444;
+}
+body.dark-mode .transaction-name {
+  color: #e0e0e0;
+}
+body.dark-mode .transaction-amount {
+  color: #e0e0e0;
+}
+body.dark-mode .transaction-category {
+  background-color: #1a1a2e;
+  color: #e0e0e0;
+}
+body.dark-mode h2 {
+  color: #a0c4ff;
+}
+body.dark-mode .form-group label {
+  color: #e0e0e0;
+}
+body.dark-mode .spending-limit-container label {
+  color: #e0e0e0;
+}
+body.dark-mode .sort-controls label {
+  color: #e0e0e0;
+}
